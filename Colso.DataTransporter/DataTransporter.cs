@@ -60,6 +60,14 @@ namespace Colso.DataTransporter
         {
             SettingFileHandler.GetConfigData(out settings);
             InitializeComponent();
+
+            toolTipMain.SetToolTip(btnSelectTarget, "Select the target XRM");
+            toolTipMain.SetToolTip(btnEntityMappings, "Manage entity GUID mappings");
+            toolTipMain.SetToolTip(btnFilter, "Manage entity filtering");
+            toolTipMain.SetToolTip(btnSaveSettings, "Save entity settings");
+            toolTipMain.SetToolTip(btnLoadSettings, "Load entity settings");
+
+            
         }
 
         #region XrmToolbox
@@ -311,7 +319,7 @@ namespace Colso.DataTransporter
         private void tsbPlaylist_Click(object sender, EventArgs e)
         {
             if (currentplaylist == null) currentplaylist = new Playlist();
-            var mappingDialog = new PlaylistDialog(this.Service, this.targetService, currentplaylist, chkUseBulk.Checked, nudBulkCount.Value);
+            var mappingDialog = new PlaylistDialog(this.Service, this.targetService, currentplaylist, chkUseBulk.Checked, nudBulkCount.Value, settings);
             mappingDialog.ShowDialog(ParentForm);
             currentplaylist = mappingDialog.Playlist;
         }
@@ -773,7 +781,14 @@ namespace Colso.DataTransporter
 
         private void Transfer_OnStatusMessage(object sender, EventArgs e)
         {
-            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(((StatusMessageEventArgs)e).Message));
+            StatusMessageEventArgs evt = ((StatusMessageEventArgs)e);
+            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(evt.Message));
+        }
+
+        private void Transfer_OnProgress(object sender, EventArgs e)
+        {            
+            ProgressEventArgs evt = ((ProgressEventArgs)e);
+            SetWorkingMessage(evt.UserState);
         }
 
         private void TransferAssociations(bool preview)
@@ -786,7 +801,7 @@ namespace Colso.DataTransporter
 
             ManageWorkingState(true);
 
-            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(0, "Start associating records..."));
+            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs("Start associating records..."));
 
             var transfermode = Enumerations.TransferMode.None;
             if (preview) transfermode |= Enumerations.TransferMode.Preview;
@@ -811,12 +826,13 @@ namespace Colso.DataTransporter
                         var entitymeta = associations[i];
                         var ass = new RelationRecord(entitymeta, transfermode, worker, Service, targetService);
 
-                        worker.ReportProgress((i / associations.Count), string.Format("{1} relation '{0}'...", ass.Name, (preview ? "Previewing" : "Transfering")));
-
+                        worker.ReportProgress((i / associations.Count), string.Format($"{ass.Name} relation '{(preview ? "Previewing" : "Transfering")}'..."));
+                        
                         try
                         {
                             ass.Mappings = settings[organisationid].Mappings;
                             ass.OnStatusMessage += Transfer_OnStatusMessage;
+                            ass.OnProgress += Transfer_OnProgress;
                             ass.Transfer(useBulk, bulkCount);
                             errors.AddRange(ass.Messages.Select(m => new Item<string, string>(ass.Name, m)));
                         }
@@ -837,14 +853,14 @@ namespace Colso.DataTransporter
 
                     if (errors.Count > 0)
                     {
-                        var errorDialog = new ErrorList((List<Item<string, string>>)evt.Result);
+                        var errorDialog = new ErrorList((List<Item<string, string>>)evt.Result, settings);
                         errorDialog.ShowDialog(ParentForm);
                     }
                 },
                 ProgressChanged = evt =>
                 {
                     SetWorkingMessage(evt.UserState.ToString());
-                    SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(evt.ProgressPercentage * 100, evt.UserState.ToString()));
+                    SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(evt.UserState.ToString()));
                 }
             });
         }
@@ -881,7 +897,7 @@ namespace Colso.DataTransporter
 
             ManageWorkingState(true);
 
-            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(0, "Start transfering records..."));
+            SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs("Start transfering records..."));
 
             var transfermode = Enumerations.TransferMode.None;
             if (preview) transfermode |= Enumerations.TransferMode.Preview;
@@ -897,7 +913,7 @@ namespace Colso.DataTransporter
             {
                 Message = preview ? "Analyzing differences..." : "Transfering records...",
                 AsyncArgument = lvEntities.SelectedItems.Cast<ListViewItem>().Select(v => (EntityMetadata)v.Tag).ToList(),
-                IsCancelable = true,
+                IsCancelable = true,                
                 Work = (worker, evt) =>
                 {
                     var entities = (List<EntityMetadata>)evt.Argument;
@@ -907,21 +923,21 @@ namespace Colso.DataTransporter
 
                     if (cbBusinessUnit.Checked)
                     {
-                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(1, "Retrieving root Business Units..."));
+                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs("Retrieving root Business Units..."));
                         var bumapping = AutoMappings.GetRootBusinessUnitMapping(this.Service, targetService);
                         if (bumapping != null) autoMappings.Add(bumapping);
                     }
 
                     if (cbTransactionCurrency.Checked)
                     {
-                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(1, "Retrieving default transaction currencies..."));
+                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs("Retrieving default transaction currencies..."));
                         var tcmapping = AutoMappings.GetDefaultTransactionCurrencyMapping(this.Service, targetService);
                         if (tcmapping != null) autoMappings.Add(tcmapping);
                     }
 
                     if (cbSystemUserEntityReferences.Checked)
                     {
-                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(1, "Retrieving systemuser mappings..."));
+                        SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs("Retrieving systemuser mappings..."));
                         var sumapping = AutoMappings.GetSystemUsersMapping(this.Service, targetService);
                         if (sumapping != null) autoMappings.AddRange(sumapping);
                     }
@@ -931,7 +947,7 @@ namespace Colso.DataTransporter
                         var entitymeta = entities[i];
                         var entity = new AppCode.EntityRecord(entitymeta, attributes, transfermode, worker, this.Service, targetService);
 
-                        worker.ReportProgress((i / entities.Count), string.Format("{1} entity '{0}'...", entity.Name, (preview ? "Previewing" : "Transfering")));
+                        worker.ReportProgress((i / entities.Count), string.Format($"{(preview ? "Previewing" : "Transfering")} entity '{entity.Name}'..."));
 
                         try
                         {
@@ -939,15 +955,16 @@ namespace Colso.DataTransporter
                             entity.Mappings = autoMappings;
                             entity.Mappings.AddRange(manualMappings);
                             entity.OnStatusMessage += Transfer_OnStatusMessage;
+                            entity.OnProgress += Transfer_OnProgress;
                             entity.Transfer(useBulk, bulkCount);
                             errors.AddRange(entity.Messages.Select(m => new Item<string, string>(entity.Name, m)));
 
                             // Show preview window
-                            if (preview)
+                            if (preview  )
                             {
                                 Invoke(new Action(() =>
                                 {
-                                    var prvwDialog = new Preview(entity.PreviewList);
+                                    var prvwDialog = new Preview(entity.PreviewList, settings);
                                     prvwDialog.ShowDialog(ParentForm);
                                 }));
                             }
@@ -970,14 +987,15 @@ namespace Colso.DataTransporter
 
                     if (errors.Count > 0)
                     {
-                        var errorDialog = new ErrorList((List<Item<string, string>>)evt.Result);
+                        var errorDialog = new ErrorList((List<Item<string, string>>)evt.Result, settings);
                         errorDialog.ShowDialog(ParentForm);
                     }
                 },
                 ProgressChanged = evt =>
                 {
                     SetWorkingMessage(evt.UserState.ToString());
-                    SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(evt.ProgressPercentage * 100, evt.UserState.ToString()));
+                    SendMessageToStatusBar?.Invoke(this, new StatusBarMessageEventArgs(evt.UserState.ToString()));
+
                 }
             });
         }

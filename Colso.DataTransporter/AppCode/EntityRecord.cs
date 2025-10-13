@@ -30,8 +30,8 @@ namespace Colso.DataTransporter.AppCode
         private readonly TransferMode transfermode;
         private EntityCollection sourceRecords;
         private EntityCollection targetRecords;
-        private BackgroundWorker worker;
-
+        public BackgroundWorker worker;
+        
         public EntityRecord(EntityMetadata entity, List<AttributeMetadata> attributes, TransferMode mode, BackgroundWorker worker, IOrganizationService sourceService, IOrganizationService targetService)
         {
             if (sourceEntitiesMetadata == null)
@@ -55,7 +55,8 @@ namespace Colso.DataTransporter.AppCode
             this.transfermode = mode;
             this.sourceService = sourceService;
             this.targetService = targetService;
-            this.Name = entity.DisplayName.UserLocalizedLabel == null ? string.Empty : entity.DisplayName.UserLocalizedLabel.Label;
+            this.targetEntityExists = true;
+            this.Name = EntityName; // entity.DisplayName.UserLocalizedLabel == null ? string.Empty : entity.DisplayName.UserLocalizedLabel.Label;
             this.Messages = new List<string>();
             this.PreviewList = new List<ListViewItem>();
         }
@@ -69,12 +70,19 @@ namespace Colso.DataTransporter.AppCode
 
         public List<string> Messages { get; }
         public string Name { get; }
-        public List<ListViewItem> PreviewList { get; }
+        public int EntityCount { get; set; }
+        public int EntityIndex { get; set; }
+        public bool targetEntityExists { get; set; }
+
+        public List<ListViewItem> PreviewList { get; }        
+
+        public string EntityName { get => (entity.DisplayName.UserLocalizedLabel == null ? string.Empty : entity.DisplayName.UserLocalizedLabel.Label); }
 
         public void Transfer(bool useBulk = false, int bulkCount = 200)
         {
             RetrieveData();
-            DoTransfer(useBulk, bulkCount);
+            if (targetRecords != null) DoTransfer(useBulk, bulkCount);
+
         }
 
         private void AddMissingAttributes(Entity entity)
@@ -217,7 +225,7 @@ namespace Colso.DataTransporter.AppCode
 
         private void DoTransfer(bool useBulk = false, int bulkCount = 200)
         {
-            if (sourceRecords == null || targetRecords == null)
+            if (sourceRecords == null || targetRecords == null )
                 return;
 
             var recordCount = sourceRecords.Entities.Count;
@@ -233,7 +241,8 @@ namespace Colso.DataTransporter.AppCode
                 Requests = new OrganizationRequestCollection(),
                 Settings = new ExecuteMultipleSettings
                 {
-                    ContinueOnError = true
+                    ContinueOnError = true,
+                    ReturnResponses = true
                 }
             };
 
@@ -250,8 +259,8 @@ namespace Colso.DataTransporter.AppCode
                     if (worker.CancellationPending) return;
 
                     processed++;
-                    var recordid = missing[i];
-                    SetProgress(i / totalTaskCount, "");
+                    var recordid = missing[i];                    
+                    SetProgress(_calcProgress(i, totalTaskCount), "");
                     SetStatusMessage("{0}/{1}: delete record", i + 1, missingCount);
                     if ((transfermode & TransferMode.Preview) != TransferMode.Preview)
                     {
@@ -296,13 +305,16 @@ namespace Colso.DataTransporter.AppCode
                 if (worker.CancellationPending) return;
 
                 processed++;
-                try
-                {
+                try 
+                    {
                     var record = sourceRecords.Entities[i];
                     var targetEntity = targetRecords.Entities.FirstOrDefault(e => e.Id.Equals(record.Id));
                     var recordexist = targetEntity != null;
-                    var name = entity.DisplayName.UserLocalizedLabel == null ? string.Empty : entity.DisplayName.UserLocalizedLabel.Label;
-                    SetProgress((i + missingCount) / totalTaskCount, "Transfering entity '{0}'...", name);
+                    var entityMessage = $"Transfering entity { ((EntityCount > 1) ? $"[{EntityIndex + 1}/{EntityCount}] " : "") }'{EntityName}' ... ({i + 1}/{recordCount})";
+                    
+                    SetProgress(_calcProgress(i,totalTaskCount), $"{entityMessage}");
+                    
+                    System.Diagnostics.Debug.WriteLine($"EntityRecord::DoTransfer('{_calcProgress(i, totalTaskCount)}', {i}, {totalTaskCount}, '{entityMessage}')");
 
                     // BC 22/11/2016: some attributes are auto added in the result query
                     var recordname = record.GetAttributeValue<string>(this.entity.PrimaryNameAttribute);
@@ -490,23 +502,26 @@ namespace Colso.DataTransporter.AppCode
             query.PageInfo.PageNumber = 1;
             query.PageInfo.Count = pageSize;
             query.PageInfo.PagingCookie = null;
+            try {
+                EntityCollection tempCollection;
+                do {
+                    tempCollection = service.RetrieveMultiple((QueryBase)query);
+                    PagingInfo pageInfo = query.PageInfo;
+                    int num = pageInfo.PageNumber + 1;
+                    pageInfo.PageNumber = num;
+                    query.PageInfo.PagingCookie = tempCollection.PagingCookie;
+                    collection.Entities.AddRange(tempCollection.Entities);
+                }
+                while (tempCollection.MoreRecords);
 
-            EntityCollection tempCollection;
-            do
-            {
-                tempCollection = service.RetrieveMultiple((QueryBase)query);
-                PagingInfo pageInfo = query.PageInfo;
-                int num = pageInfo.PageNumber + 1;
-                pageInfo.PageNumber = num;
-                query.PageInfo.PagingCookie = tempCollection.PagingCookie;
-                collection.Entities.AddRange(tempCollection.Entities);
+                collection.EntityName = query.EntityName;
+                collection.MoreRecords = false;
+                collection.TotalRecordCount = collection.Entities.Count;
             }
-            while (tempCollection.MoreRecords);
-
-            collection.EntityName = query.EntityName;
-            collection.MoreRecords = false;
-            collection.TotalRecordCount = collection.Entities.Count;
-
+            catch (Exception ex) {
+                if (ex.Message.Contains("not found")) collection.TotalRecordCount = -1;
+                this.Messages.Add(ex.Message);
+            }
             return collection;
         }
 
@@ -544,14 +559,26 @@ namespace Colso.DataTransporter.AppCode
             if (this.entity.Attributes.Any(a => a != null && !string.IsNullOrEmpty(a.LogicalName) && a.LogicalName.Equals("statecode")))
                 targetcolumnset.AddColumns("statecode", "statuscode");
             var targetqry = new QueryExpression(entity.LogicalName) { ColumnSet = targetcolumnset };
+            try {
+                SetProgress(0, $"Retrieving records from '{EntityName}'...");
+                var targetRetrieveTask = Task.Factory.StartNew<EntityCollection>(() => { return RetrieveAll(targetService, targetqry); });
+                if (targetRetrieveTask.Result.TotalRecordCount >= 0) {
+                    var sourceRetrieveTask = Task.Factory.StartNew<EntityCollection>(() => { return RetrieveAll(sourceService, sourceqry); });
+                    Task.WaitAll(sourceRetrieveTask, targetRetrieveTask);
 
-            SetProgress(0, "Retrieving records...");
-            var sourceRetrieveTask = Task.Factory.StartNew<EntityCollection>(() => { return RetrieveAll(sourceService, sourceqry); });
-            var targetRetrieveTask = Task.Factory.StartNew<EntityCollection>(() => { return RetrieveAll(targetService, targetqry); });
-            Task.WaitAll(sourceRetrieveTask, targetRetrieveTask);
+                    sourceRecords = sourceRetrieveTask.Result;
+                    targetRecords = targetRetrieveTask.Result;
+                }
+                else {
+                    targetEntityExists = false;
+                }
+            }
+            catch (System.ServiceModel.FaultException<OrganizationServiceFault> error) {
+                this.Messages.Add(error.Message);
+                // "The entity with a name = 'dplh_logerrorhandling' with namemapping = 'Logical' was not found in the MetadataCache.LazyDynamicMetadataCache with version 21284982 and timestamp 21284982"
+                
+            }
 
-            sourceRecords = sourceRetrieveTask.Result;
-            targetRecords = targetRetrieveTask.Result;
         }
 
         private void SetProgress(int progress, string format, params object[] args)
@@ -591,7 +618,7 @@ namespace Colso.DataTransporter.AppCode
         {
             // Make sure someone is listening to event
             if (OnStatusMessage == null) return;
-
+            
             OnStatusMessage(this, new StatusMessageEventArgs(string.Format(format, args)));
         }
 

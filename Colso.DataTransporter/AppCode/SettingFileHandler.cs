@@ -90,6 +90,23 @@ namespace Colso.DataTransporter.AppCode
                 return _Organisations.Where(o => o.Key == organisationid).Select(o => o.Value).FirstOrDefault();
             }
         }
+
+        private bool _previewExtractIDs = false;
+
+        public bool previewExtractIDs
+        {
+            get { return _previewExtractIDs; }
+            set { _previewExtractIDs = value; }
+        }
+
+        private bool _errorExtractIDs = false;
+
+        public bool errorExtractIDs
+        {
+            get { return _errorExtractIDs; }
+            set { _errorExtractIDs = value; }
+        }
+
     }
 
     public class Organisations

@@ -94,6 +94,8 @@
             this.clEntity2LogicalName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clEntity2IntersectAttribute = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblAssFilter = new System.Windows.Forms.Label();
+            this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbSettings.SuspendLayout();
@@ -112,20 +114,18 @@
             // 
             this.txtEntityFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEntityFilter.Location = new System.Drawing.Point(64, 21);
-            this.txtEntityFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEntityFilter.Location = new System.Drawing.Point(48, 17);
             this.txtEntityFilter.Name = "txtEntityFilter";
-            this.txtEntityFilter.Size = new System.Drawing.Size(349, 22);
+            this.txtEntityFilter.Size = new System.Drawing.Size(262, 20);
             this.txtEntityFilter.TabIndex = 66;
             this.txtEntityFilter.TextChanged += new System.EventHandler(this.txtEntityFilter_TextChanged);
             // 
             // lblEntityFilter
             // 
             this.lblEntityFilter.AutoSize = true;
-            this.lblEntityFilter.Location = new System.Drawing.Point(8, 27);
-            this.lblEntityFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEntityFilter.Location = new System.Drawing.Point(6, 22);
             this.lblEntityFilter.Name = "lblEntityFilter";
-            this.lblEntityFilter.Size = new System.Drawing.Size(39, 16);
+            this.lblEntityFilter.Size = new System.Drawing.Size(32, 13);
             this.lblEntityFilter.TabIndex = 65;
             this.lblEntityFilter.Text = "Filter:";
             // 
@@ -140,11 +140,10 @@
             this.clComment});
             this.lvEntities.FullRowSelect = true;
             this.lvEntities.HideSelection = false;
-            this.lvEntities.Location = new System.Drawing.Point(9, 54);
-            this.lvEntities.Margin = new System.Windows.Forms.Padding(4);
+            this.lvEntities.Location = new System.Drawing.Point(7, 44);
             this.lvEntities.MultiSelect = false;
             this.lvEntities.Name = "lvEntities";
-            this.lvEntities.Size = new System.Drawing.Size(403, 478);
+            this.lvEntities.Size = new System.Drawing.Size(302, 388);
             this.lvEntities.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvEntities.TabIndex = 64;
             this.lvEntities.UseCompatibleStateImageBehavior = false;
@@ -180,10 +179,9 @@
             this.pnlHeader.Controls.Add(this.gbSettings);
             this.pnlHeader.Controls.Add(this.gbEnvironments);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHeader.Location = new System.Drawing.Point(0, 30);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(4);
+            this.pnlHeader.Location = new System.Drawing.Point(0, 24);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1067, 123);
+            this.pnlHeader.Size = new System.Drawing.Size(800, 100);
             this.pnlHeader.TabIndex = 103;
             // 
             // groupBox1
@@ -192,11 +190,9 @@
             this.groupBox1.Controls.Add(this.cbSystemUserEntityReferences);
             this.groupBox1.Controls.Add(this.cbTransactionCurrency);
             this.groupBox1.Controls.Add(this.cbBusinessUnit);
-            this.groupBox1.Location = new System.Drawing.Point(798, 5);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(598, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(259, 114);
+            this.groupBox1.Size = new System.Drawing.Size(194, 93);
             this.groupBox1.TabIndex = 103;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Auto-Mappings";
@@ -206,10 +202,9 @@
             this.cbSystemUserEntityReferences.AutoSize = true;
             this.cbSystemUserEntityReferences.Checked = true;
             this.cbSystemUserEntityReferences.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSystemUserEntityReferences.Location = new System.Drawing.Point(8, 82);
-            this.cbSystemUserEntityReferences.Margin = new System.Windows.Forms.Padding(4);
+            this.cbSystemUserEntityReferences.Location = new System.Drawing.Point(6, 67);
             this.cbSystemUserEntityReferences.Name = "cbSystemUserEntityReferences";
-            this.cbSystemUserEntityReferences.Size = new System.Drawing.Size(211, 20);
+            this.cbSystemUserEntityReferences.Size = new System.Drawing.Size(172, 17);
             this.cbSystemUserEntityReferences.TabIndex = 3;
             this.cbSystemUserEntityReferences.Text = "System User Entity References";
             this.cbSystemUserEntityReferences.UseVisualStyleBackColor = true;
@@ -219,10 +214,9 @@
             this.cbTransactionCurrency.AutoSize = true;
             this.cbTransactionCurrency.Checked = true;
             this.cbTransactionCurrency.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTransactionCurrency.Location = new System.Drawing.Point(8, 54);
-            this.cbTransactionCurrency.Margin = new System.Windows.Forms.Padding(4);
+            this.cbTransactionCurrency.Location = new System.Drawing.Point(6, 44);
             this.cbTransactionCurrency.Name = "cbTransactionCurrency";
-            this.cbTransactionCurrency.Size = new System.Drawing.Size(198, 20);
+            this.cbTransactionCurrency.Size = new System.Drawing.Size(164, 17);
             this.cbTransactionCurrency.TabIndex = 2;
             this.cbTransactionCurrency.Text = "Default Transaction Currency";
             this.cbTransactionCurrency.UseVisualStyleBackColor = true;
@@ -232,10 +226,9 @@
             this.cbBusinessUnit.AutoSize = true;
             this.cbBusinessUnit.Checked = true;
             this.cbBusinessUnit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbBusinessUnit.Location = new System.Drawing.Point(8, 26);
-            this.cbBusinessUnit.Margin = new System.Windows.Forms.Padding(4);
+            this.cbBusinessUnit.Location = new System.Drawing.Point(6, 21);
             this.cbBusinessUnit.Name = "cbBusinessUnit";
-            this.cbBusinessUnit.Size = new System.Drawing.Size(139, 20);
+            this.cbBusinessUnit.Size = new System.Drawing.Size(116, 17);
             this.cbBusinessUnit.TabIndex = 0;
             this.cbBusinessUnit.Text = "Root Business Unit";
             this.cbBusinessUnit.UseVisualStyleBackColor = true;
@@ -249,11 +242,9 @@
             this.gbSettings.Controls.Add(this.cbUpdate);
             this.gbSettings.Controls.Add(this.cbDelete);
             this.gbSettings.Controls.Add(this.cbCreate);
-            this.gbSettings.Location = new System.Drawing.Point(557, 4);
-            this.gbSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.gbSettings.Location = new System.Drawing.Point(418, 3);
             this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Padding = new System.Windows.Forms.Padding(4);
-            this.gbSettings.Size = new System.Drawing.Size(234, 116);
+            this.gbSettings.Size = new System.Drawing.Size(176, 94);
             this.gbSettings.TabIndex = 102;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
@@ -266,8 +257,8 @@
             0,
             0,
             0});
-            this.nudBulkCount.Location = new System.Drawing.Point(101, 81);
-            this.nudBulkCount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nudBulkCount.Location = new System.Drawing.Point(76, 66);
+            this.nudBulkCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudBulkCount.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -279,7 +270,7 @@
             0,
             0});
             this.nudBulkCount.Name = "nudBulkCount";
-            this.nudBulkCount.Size = new System.Drawing.Size(125, 22);
+            this.nudBulkCount.Size = new System.Drawing.Size(94, 20);
             this.nudBulkCount.TabIndex = 5;
             this.nudBulkCount.Value = new decimal(new int[] {
             100,
@@ -290,9 +281,10 @@
             // lblBulkCount
             // 
             this.lblBulkCount.AutoSize = true;
-            this.lblBulkCount.Location = new System.Drawing.Point(98, 55);
+            this.lblBulkCount.Location = new System.Drawing.Point(74, 45);
+            this.lblBulkCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBulkCount.Name = "lblBulkCount";
-            this.lblBulkCount.Size = new System.Drawing.Size(68, 16);
+            this.lblBulkCount.Size = new System.Drawing.Size(58, 13);
             this.lblBulkCount.TabIndex = 4;
             this.lblBulkCount.Text = "Bulk count";
             // 
@@ -301,10 +293,9 @@
             this.chkUseBulk.AutoSize = true;
             this.chkUseBulk.Checked = true;
             this.chkUseBulk.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUseBulk.Location = new System.Drawing.Point(101, 26);
-            this.chkUseBulk.Margin = new System.Windows.Forms.Padding(4);
+            this.chkUseBulk.Location = new System.Drawing.Point(76, 21);
             this.chkUseBulk.Name = "chkUseBulk";
-            this.chkUseBulk.Size = new System.Drawing.Size(117, 20);
+            this.chkUseBulk.Size = new System.Drawing.Size(98, 17);
             this.chkUseBulk.TabIndex = 3;
             this.chkUseBulk.Text = "Process in bulk";
             this.chkUseBulk.UseVisualStyleBackColor = true;
@@ -313,10 +304,9 @@
             // cbUpdate
             // 
             this.cbUpdate.AutoSize = true;
-            this.cbUpdate.Location = new System.Drawing.Point(8, 54);
-            this.cbUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.cbUpdate.Location = new System.Drawing.Point(6, 44);
             this.cbUpdate.Name = "cbUpdate";
-            this.cbUpdate.Size = new System.Drawing.Size(71, 20);
+            this.cbUpdate.Size = new System.Drawing.Size(61, 17);
             this.cbUpdate.TabIndex = 2;
             this.cbUpdate.Text = "Update";
             this.cbUpdate.UseVisualStyleBackColor = true;
@@ -324,10 +314,9 @@
             // cbDelete
             // 
             this.cbDelete.AutoSize = true;
-            this.cbDelete.Location = new System.Drawing.Point(8, 82);
-            this.cbDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.cbDelete.Location = new System.Drawing.Point(6, 67);
             this.cbDelete.Name = "cbDelete";
-            this.cbDelete.Size = new System.Drawing.Size(66, 20);
+            this.cbDelete.Size = new System.Drawing.Size(57, 17);
             this.cbDelete.TabIndex = 1;
             this.cbDelete.Text = "Delete";
             this.cbDelete.UseVisualStyleBackColor = true;
@@ -337,10 +326,9 @@
             this.cbCreate.AutoSize = true;
             this.cbCreate.Checked = true;
             this.cbCreate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCreate.Location = new System.Drawing.Point(8, 26);
-            this.cbCreate.Margin = new System.Windows.Forms.Padding(4);
+            this.cbCreate.Location = new System.Drawing.Point(6, 21);
             this.cbCreate.Name = "cbCreate";
-            this.cbCreate.Size = new System.Drawing.Size(66, 20);
+            this.cbCreate.Size = new System.Drawing.Size(57, 17);
             this.cbCreate.TabIndex = 0;
             this.cbCreate.Text = "Create";
             this.cbCreate.UseVisualStyleBackColor = true;
@@ -353,11 +341,9 @@
             this.gbEnvironments.Controls.Add(this.lblSource);
             this.gbEnvironments.Controls.Add(this.btnSelectTarget);
             this.gbEnvironments.Controls.Add(this.lbTargetValue);
-            this.gbEnvironments.Location = new System.Drawing.Point(4, 5);
-            this.gbEnvironments.Margin = new System.Windows.Forms.Padding(4);
+            this.gbEnvironments.Location = new System.Drawing.Point(3, 4);
             this.gbEnvironments.Name = "gbEnvironments";
-            this.gbEnvironments.Padding = new System.Windows.Forms.Padding(4);
-            this.gbEnvironments.Size = new System.Drawing.Size(547, 114);
+            this.gbEnvironments.Size = new System.Drawing.Size(410, 93);
             this.gbEnvironments.TabIndex = 101;
             this.gbEnvironments.TabStop = false;
             this.gbEnvironments.Text = "Environments";
@@ -369,8 +355,7 @@
             this.lbSourceValue.AutoSize = true;
             this.lbSourceValue.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbSourceValue.ForeColor = System.Drawing.Color.Red;
-            this.lbSourceValue.Location = new System.Drawing.Point(152, 30);
-            this.lbSourceValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbSourceValue.Location = new System.Drawing.Point(114, 24);
             this.lbSourceValue.Name = "lbSourceValue";
             this.lbSourceValue.Size = new System.Drawing.Size(64, 13);
             this.lbSourceValue.TabIndex = 97;
@@ -379,19 +364,17 @@
             // lblSource
             // 
             this.lblSource.AutoSize = true;
-            this.lblSource.Location = new System.Drawing.Point(8, 30);
-            this.lblSource.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSource.Location = new System.Drawing.Point(6, 24);
             this.lblSource.Name = "lblSource";
-            this.lblSource.Size = new System.Drawing.Size(50, 16);
+            this.lblSource.Size = new System.Drawing.Size(41, 13);
             this.lblSource.TabIndex = 100;
             this.lblSource.Text = "Source";
             // 
             // btnSelectTarget
             // 
-            this.btnSelectTarget.Location = new System.Drawing.Point(8, 50);
-            this.btnSelectTarget.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSelectTarget.Location = new System.Drawing.Point(6, 41);
             this.btnSelectTarget.Name = "btnSelectTarget";
-            this.btnSelectTarget.Size = new System.Drawing.Size(114, 28);
+            this.btnSelectTarget.Size = new System.Drawing.Size(86, 23);
             this.btnSelectTarget.TabIndex = 99;
             this.btnSelectTarget.Text = "Select target";
             this.btnSelectTarget.UseVisualStyleBackColor = true;
@@ -404,8 +387,7 @@
             this.lbTargetValue.AutoSize = true;
             this.lbTargetValue.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbTargetValue.ForeColor = System.Drawing.Color.Red;
-            this.lbTargetValue.Location = new System.Drawing.Point(152, 55);
-            this.lbTargetValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbTargetValue.Location = new System.Drawing.Point(114, 45);
             this.lbTargetValue.Name = "lbTargetValue";
             this.lbTargetValue.Size = new System.Drawing.Size(64, 13);
             this.lbTargetValue.TabIndex = 98;
@@ -428,7 +410,7 @@
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.tsMain.Size = new System.Drawing.Size(1067, 30);
+            this.tsMain.Size = new System.Drawing.Size(800, 24);
             this.tsMain.TabIndex = 90;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -438,7 +420,7 @@
             this.tsbRefreshEntities.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.entities;
             this.tsbRefreshEntities.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRefreshEntities.Name = "tsbRefreshEntities";
-            this.tsbRefreshEntities.Size = new System.Drawing.Size(107, 27);
+            this.tsbRefreshEntities.Size = new System.Drawing.Size(107, 21);
             this.tsbRefreshEntities.Text = "Refresh Entities";
             this.tsbRefreshEntities.Click += new System.EventHandler(this.tsbRefreshEntities_Click);
             // 
@@ -447,21 +429,21 @@
             this.tsbRefreshAssociations.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.relation;
             this.tsbRefreshAssociations.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbRefreshAssociations.Name = "tsbRefreshAssociations";
-            this.tsbRefreshAssociations.Size = new System.Drawing.Size(135, 27);
+            this.tsbRefreshAssociations.Size = new System.Drawing.Size(135, 21);
             this.tsbRefreshAssociations.Text = "Refresh Associations";
             this.tsbRefreshAssociations.Click += new System.EventHandler(this.tsbRefreshAssociations_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 24);
             // 
             // btnPreviewTransfer
             // 
             this.btnPreviewTransfer.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.preview;
             this.btnPreviewTransfer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPreviewTransfer.Name = "btnPreviewTransfer";
-            this.btnPreviewTransfer.Size = new System.Drawing.Size(68, 27);
+            this.btnPreviewTransfer.Size = new System.Drawing.Size(68, 21);
             this.btnPreviewTransfer.Text = "Preview";
             this.btnPreviewTransfer.Click += new System.EventHandler(this.btnPreviewTransfer_Click);
             // 
@@ -470,7 +452,7 @@
             this.tsbTransferDashboards.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.export;
             this.tsbTransferDashboards.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbTransferDashboards.Name = "tsbTransferDashboards";
-            this.tsbTransferDashboards.Size = new System.Drawing.Size(95, 27);
+            this.tsbTransferDashboards.Size = new System.Drawing.Size(96, 21);
             this.tsbTransferDashboards.Text = "Transfer Data";
             this.tsbTransferDashboards.Click += new System.EventHandler(this.tsbTransferData_Click);
             // 
@@ -480,7 +462,7 @@
             this.tsbCancel.Image = ((System.Drawing.Image)(resources.GetObject("tsbCancel.Image")));
             this.tsbCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbCancel.Name = "tsbCancel";
-            this.tsbCancel.Size = new System.Drawing.Size(47, 27);
+            this.tsbCancel.Size = new System.Drawing.Size(47, 21);
             this.tsbCancel.Text = "Cancel";
             this.tsbCancel.Visible = false;
             this.tsbCancel.Click += new System.EventHandler(this.tsbCancel_Click);
@@ -488,14 +470,14 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 24);
             // 
             // tsbPlaylist
             // 
             this.tsbPlaylist.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.playlist;
             this.tsbPlaylist.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbPlaylist.Name = "tsbPlaylist";
-            this.tsbPlaylist.Size = new System.Drawing.Size(64, 27);
+            this.tsbPlaylist.Size = new System.Drawing.Size(64, 21);
             this.tsbPlaylist.Text = "Playlist";
             this.tsbPlaylist.ToolTipText = "Manage Playlist";
             this.tsbPlaylist.Click += new System.EventHandler(this.tsbPlaylist_Click);
@@ -503,7 +485,7 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 30);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 24);
             // 
             // tsbDonate
             // 
@@ -514,7 +496,7 @@
             this.tsbDonate.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.paypal;
             this.tsbDonate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbDonate.Name = "tsbDonate";
-            this.tsbDonate.Size = new System.Drawing.Size(74, 27);
+            this.tsbDonate.Size = new System.Drawing.Size(74, 21);
             this.tsbDonate.Text = "Donate";
             // 
             // donateInUSDToolStripMenuItem
@@ -546,13 +528,12 @@
             this.pnlBody.Controls.Add(this.gbAttributes, 1, 0);
             this.pnlBody.Controls.Add(this.gbEntities, 0, 0);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBody.Location = new System.Drawing.Point(4, 4);
-            this.pnlBody.Margin = new System.Windows.Forms.Padding(4);
+            this.pnlBody.Location = new System.Drawing.Point(3, 3);
             this.pnlBody.Name = "pnlBody";
             this.pnlBody.RowCount = 1;
             this.pnlBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.pnlBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlBody.Size = new System.Drawing.Size(1051, 548);
+            this.pnlBody.Size = new System.Drawing.Size(786, 444);
             this.pnlBody.TabIndex = 104;
             // 
             // gbAttributes
@@ -565,11 +546,9 @@
             this.gbAttributes.Controls.Add(this.lvAttributes);
             this.gbAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbAttributes.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.gbAttributes.Location = new System.Drawing.Point(433, 4);
-            this.gbAttributes.Margin = new System.Windows.Forms.Padding(4);
+            this.gbAttributes.Location = new System.Drawing.Point(324, 3);
             this.gbAttributes.Name = "gbAttributes";
-            this.gbAttributes.Padding = new System.Windows.Forms.Padding(4);
-            this.gbAttributes.Size = new System.Drawing.Size(614, 540);
+            this.gbAttributes.Size = new System.Drawing.Size(459, 438);
             this.gbAttributes.TabIndex = 92;
             this.gbAttributes.TabStop = false;
             this.gbAttributes.Text = "Available attributes";
@@ -578,10 +557,9 @@
             // 
             this.btnLoadSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoadSettings.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.load;
-            this.btnLoadSettings.Location = new System.Drawing.Point(576, 21);
-            this.btnLoadSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLoadSettings.Location = new System.Drawing.Point(431, 17);
             this.btnLoadSettings.Name = "btnLoadSettings";
-            this.btnLoadSettings.Size = new System.Drawing.Size(30, 28);
+            this.btnLoadSettings.Size = new System.Drawing.Size(22, 23);
             this.btnLoadSettings.TabIndex = 104;
             this.btnLoadSettings.UseVisualStyleBackColor = true;
             this.btnLoadSettings.Click += new System.EventHandler(this.btnLoadSettings_Click);
@@ -590,10 +568,9 @@
             // 
             this.btnSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveSettings.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.save;
-            this.btnSaveSettings.Location = new System.Drawing.Point(538, 21);
-            this.btnSaveSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSaveSettings.Location = new System.Drawing.Point(403, 17);
             this.btnSaveSettings.Name = "btnSaveSettings";
-            this.btnSaveSettings.Size = new System.Drawing.Size(30, 28);
+            this.btnSaveSettings.Size = new System.Drawing.Size(22, 23);
             this.btnSaveSettings.TabIndex = 103;
             this.btnSaveSettings.UseVisualStyleBackColor = true;
             this.btnSaveSettings.Click += new System.EventHandler(this.btnSaveSettings_Click);
@@ -602,10 +579,9 @@
             // 
             this.btnEntityMappings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEntityMappings.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnEntityMappings.Location = new System.Drawing.Point(354, 21);
-            this.btnEntityMappings.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEntityMappings.Location = new System.Drawing.Point(265, 17);
             this.btnEntityMappings.Name = "btnEntityMappings";
-            this.btnEntityMappings.Size = new System.Drawing.Size(96, 28);
+            this.btnEntityMappings.Size = new System.Drawing.Size(72, 23);
             this.btnEntityMappings.TabIndex = 102;
             this.btnEntityMappings.Text = "Mappings";
             this.btnEntityMappings.UseVisualStyleBackColor = true;
@@ -615,10 +591,9 @@
             // 
             this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFilter.Enabled = false;
-            this.btnFilter.Location = new System.Drawing.Point(458, 21);
-            this.btnFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.btnFilter.Location = new System.Drawing.Point(343, 17);
             this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(71, 28);
+            this.btnFilter.Size = new System.Drawing.Size(53, 23);
             this.btnFilter.TabIndex = 101;
             this.btnFilter.Text = "Filters";
             this.btnFilter.UseVisualStyleBackColor = true;
@@ -629,8 +604,7 @@
             this.chkAllAttributes.AutoSize = true;
             this.chkAllAttributes.Checked = true;
             this.chkAllAttributes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAllAttributes.Location = new System.Drawing.Point(8, 26);
-            this.chkAllAttributes.Margin = new System.Windows.Forms.Padding(4);
+            this.chkAllAttributes.Location = new System.Drawing.Point(6, 21);
             this.chkAllAttributes.Name = "chkAllAttributes";
             this.chkAllAttributes.Size = new System.Drawing.Size(120, 17);
             this.chkAllAttributes.TabIndex = 3;
@@ -651,10 +625,9 @@
             this.clAttComment});
             this.lvAttributes.FullRowSelect = true;
             this.lvAttributes.HideSelection = false;
-            this.lvAttributes.Location = new System.Drawing.Point(8, 54);
-            this.lvAttributes.Margin = new System.Windows.Forms.Padding(4);
+            this.lvAttributes.Location = new System.Drawing.Point(6, 44);
             this.lvAttributes.Name = "lvAttributes";
-            this.lvAttributes.Size = new System.Drawing.Size(597, 478);
+            this.lvAttributes.Size = new System.Drawing.Size(448, 388);
             this.lvAttributes.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvAttributes.TabIndex = 64;
             this.lvAttributes.UseCompatibleStateImageBehavior = false;
@@ -688,11 +661,9 @@
             this.gbEntities.Controls.Add(this.lblEntityFilter);
             this.gbEntities.Controls.Add(this.lvEntities);
             this.gbEntities.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbEntities.Location = new System.Drawing.Point(4, 4);
-            this.gbEntities.Margin = new System.Windows.Forms.Padding(4);
+            this.gbEntities.Location = new System.Drawing.Point(3, 3);
             this.gbEntities.Name = "gbEntities";
-            this.gbEntities.Padding = new System.Windows.Forms.Padding(4);
-            this.gbEntities.Size = new System.Drawing.Size(421, 540);
+            this.gbEntities.Size = new System.Drawing.Size(315, 438);
             this.gbEntities.TabIndex = 93;
             this.gbEntities.TabStop = false;
             this.gbEntities.Text = "Available Entities";
@@ -702,22 +673,20 @@
             this.tabSourceObjects.Controls.Add(this.tabEntities);
             this.tabSourceObjects.Controls.Add(this.tabAssociations);
             this.tabSourceObjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabSourceObjects.Location = new System.Drawing.Point(0, 153);
-            this.tabSourceObjects.Margin = new System.Windows.Forms.Padding(4);
+            this.tabSourceObjects.Location = new System.Drawing.Point(0, 124);
             this.tabSourceObjects.Name = "tabSourceObjects";
             this.tabSourceObjects.SelectedIndex = 0;
-            this.tabSourceObjects.Size = new System.Drawing.Size(1067, 585);
+            this.tabSourceObjects.Size = new System.Drawing.Size(800, 476);
             this.tabSourceObjects.TabIndex = 67;
             this.tabSourceObjects.SelectedIndexChanged += new System.EventHandler(this.tabSourceObjects_SelectedIndexChanged);
             // 
             // tabEntities
             // 
             this.tabEntities.Controls.Add(this.pnlBody);
-            this.tabEntities.Location = new System.Drawing.Point(4, 25);
-            this.tabEntities.Margin = new System.Windows.Forms.Padding(4);
+            this.tabEntities.Location = new System.Drawing.Point(4, 22);
             this.tabEntities.Name = "tabEntities";
-            this.tabEntities.Padding = new System.Windows.Forms.Padding(4);
-            this.tabEntities.Size = new System.Drawing.Size(1059, 556);
+            this.tabEntities.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabEntities.Size = new System.Drawing.Size(792, 450);
             this.tabEntities.TabIndex = 0;
             this.tabEntities.Text = "Entities";
             this.tabEntities.UseVisualStyleBackColor = true;
@@ -728,11 +697,10 @@
             this.tabAssociations.Controls.Add(this.txtAssFilter);
             this.tabAssociations.Controls.Add(this.lvAssociations);
             this.tabAssociations.Controls.Add(this.lblAssFilter);
-            this.tabAssociations.Location = new System.Drawing.Point(4, 25);
-            this.tabAssociations.Margin = new System.Windows.Forms.Padding(4);
+            this.tabAssociations.Location = new System.Drawing.Point(4, 22);
             this.tabAssociations.Name = "tabAssociations";
-            this.tabAssociations.Padding = new System.Windows.Forms.Padding(4);
-            this.tabAssociations.Size = new System.Drawing.Size(1059, 556);
+            this.tabAssociations.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAssociations.Size = new System.Drawing.Size(792, 450);
             this.tabAssociations.TabIndex = 1;
             this.tabAssociations.Text = "Associations";
             this.tabAssociations.UseVisualStyleBackColor = true;
@@ -741,10 +709,9 @@
             // 
             this.btnAssMappings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAssMappings.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnAssMappings.Location = new System.Drawing.Point(952, 5);
-            this.btnAssMappings.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAssMappings.Location = new System.Drawing.Point(714, 4);
             this.btnAssMappings.Name = "btnAssMappings";
-            this.btnAssMappings.Size = new System.Drawing.Size(96, 28);
+            this.btnAssMappings.Size = new System.Drawing.Size(72, 23);
             this.btnAssMappings.TabIndex = 103;
             this.btnAssMappings.Text = "Mappings";
             this.btnAssMappings.UseVisualStyleBackColor = true;
@@ -754,10 +721,9 @@
             // 
             this.txtAssFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAssFilter.Location = new System.Drawing.Point(62, 7);
-            this.txtAssFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAssFilter.Location = new System.Drawing.Point(46, 6);
             this.txtAssFilter.Name = "txtAssFilter";
-            this.txtAssFilter.Size = new System.Drawing.Size(880, 22);
+            this.txtAssFilter.Size = new System.Drawing.Size(661, 20);
             this.txtAssFilter.TabIndex = 69;
             this.txtAssFilter.TextChanged += new System.EventHandler(this.txtAssFilter_TextChanged);
             // 
@@ -775,11 +741,10 @@
             this.clEntity2IntersectAttribute});
             this.lvAssociations.FullRowSelect = true;
             this.lvAssociations.HideSelection = false;
-            this.lvAssociations.Location = new System.Drawing.Point(8, 42);
-            this.lvAssociations.Margin = new System.Windows.Forms.Padding(4);
+            this.lvAssociations.Location = new System.Drawing.Point(6, 34);
             this.lvAssociations.MultiSelect = false;
             this.lvAssociations.Name = "lvAssociations";
-            this.lvAssociations.Size = new System.Drawing.Size(1039, 502);
+            this.lvAssociations.Size = new System.Drawing.Size(780, 410);
             this.lvAssociations.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvAssociations.TabIndex = 67;
             this.lvAssociations.UseCompatibleStateImageBehavior = false;
@@ -820,24 +785,22 @@
             // lblAssFilter
             // 
             this.lblAssFilter.AutoSize = true;
-            this.lblAssFilter.Location = new System.Drawing.Point(7, 14);
-            this.lblAssFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAssFilter.Location = new System.Drawing.Point(5, 11);
             this.lblAssFilter.Name = "lblAssFilter";
-            this.lblAssFilter.Size = new System.Drawing.Size(39, 16);
+            this.lblAssFilter.Size = new System.Drawing.Size(32, 13);
             this.lblAssFilter.TabIndex = 68;
             this.lblAssFilter.Text = "Filter:";
             // 
             // DataTransporter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.tabSourceObjects);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.tsMain);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DataTransporter";
-            this.Size = new System.Drawing.Size(1067, 738);
+            this.Size = new System.Drawing.Size(800, 600);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -926,5 +889,7 @@
         private System.Windows.Forms.NumericUpDown nudBulkCount;
         private System.Windows.Forms.Label lblBulkCount;
         private System.Windows.Forms.ToolStripButton tsbCancel;
+        private System.Windows.Forms.ToolTip toolTipMain;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

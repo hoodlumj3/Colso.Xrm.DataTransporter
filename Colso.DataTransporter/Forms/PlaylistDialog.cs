@@ -29,13 +29,15 @@ namespace Colso.DataTransporter.Forms
         private IOrganizationService sourceService;
         private IOrganizationService targetService;
         private bool useBulk;
+        private Settings settings;
 
-        public PlaylistDialog(IOrganizationService sourceService, IOrganizationService targetService, Playlist list, bool useBulk, decimal bulkCount)
+        public PlaylistDialog(IOrganizationService sourceService, IOrganizationService targetService, Playlist list, bool useBulk, decimal bulkCount, Settings settings)
         {
             this.sourceService = sourceService;
             this.targetService = targetService;
             this.useBulk = useBulk;
             this.bulkCount = Convert.ToInt32(bulkCount);
+            this.settings = settings;
             if (list.Items == null) list.Items = new List<PlaylistItem>();
             this.list = list;
             InitializeComponent();
@@ -46,9 +48,19 @@ namespace Colso.DataTransporter.Forms
             colIdxUpdate = dgvPlaylist.Columns["clUpdate"].Index;
             colIdxDelete = dgvPlaylist.Columns["clDelete"].Index;
             colIdxSequence = dgvPlaylist.Columns["clSequence"].Index;
+
+            toolTipPlayList.SetToolTip(btnAddEntitySetting, "Import / load a previously saved entity");
+            toolTipPlayList.SetToolTip(btnTransfer, "Start the data transfer");
+            toolTipPlayList.SetToolTip(btnCancel, "Cancel the running playlist");
+            toolTipPlayList.SetToolTip(btnSave, "Save this playlist");
+            toolTipPlayList.SetToolTip(btnOpen, "Load a new playlist");
+            toolTipPlayList.SetToolTip(btnClose, "Close this dialog");
+            
+
         }
 
         public event EventHandler OnStatusMessage;
+        public event EventHandler OnProgress;
 
         public Playlist Playlist { get { return list; } }
 
@@ -244,14 +256,17 @@ namespace Colso.DataTransporter.Forms
                                 .ToList();
                     var entity = new AppCode.EntityRecord(entitymeta, attributes, item.Actions, bwTransferData, sourceService, targetService);
 
-                    worker.ReportProgress((i / list.Items.Count), string.Format("Transfering entity '{0}'...", entity.Name));
 
                     try
                     {
+                        entity.EntityCount = list.Items.Count;
+                        entity.EntityIndex = i;
                         entity.Filter = item.Setting.Filter;
                         entity.Mappings = autoMappings;
                         entity.Mappings.AddRange(item.Setting.Mappings);
                         entity.OnStatusMessage += OnStatusMessage;
+                        entity.OnProgress += Transfer_OnProgress;
+
                         entity.Transfer(useBulk, bulkCount);
                         errors.AddRange(entity.Messages.Select(m => new Item<string, string>(entity.Name, m)));
                     }
@@ -275,14 +290,14 @@ namespace Colso.DataTransporter.Forms
 
                 if (errors.Count > 0)
                 {
-                    var errorDialog = new ErrorList((List<Item<string, string>>)e.Result);
+                    var errorDialog = new ErrorList((List<Item<string, string>>)e.Result, settings);
                     errorDialog.ShowDialog(ParentForm);
                 }
             };
             bwTransferData.ProgressChanged += (sender, e) =>
             {
                 InformationPanel.ChangeInformationPanelMessage(informationPanel, e.UserState.ToString());
-                OnStatusMessage?.Invoke(this, new StatusBarMessageEventArgs(e.ProgressPercentage * 100, e.UserState.ToString()));
+                OnStatusMessage?.Invoke(this, new StatusBarMessageEventArgs(e.ProgressPercentage, e.UserState.ToString()));
             };
             bwTransferData.RunWorkerAsync();
         }
@@ -314,5 +329,19 @@ namespace Colso.DataTransporter.Forms
             foreach (var item in list.Items)
                 AddToList(item);
         }
+
+        private void Transfer_OnProgress(object sender, EventArgs e)
+        {
+            ProgressEventArgs evt = ((ProgressEventArgs)e);
+            EntityRecord er = ((EntityRecord)sender);
+            BackgroundWorker worker = ((BackgroundWorker)er.worker);
+
+            System.Diagnostics.Debug.WriteLine($"DataTransporter::Transfer_OnProgress({evt.Progress}, {evt.UserState}, {sender.GetType()})");
+            //this.SetWorkingMessage(evt.UserState);
+            worker.ReportProgress(evt.Progress, evt.UserState);
+        }
+
+
     }
+
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -35,6 +36,9 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnCopy = new System.Windows.Forms.Button();
+            this.toolTipErrorList = new System.Windows.Forms.ToolTip(this.components);
+            this.ckbExtractIDs = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,10 +82,11 @@
             this.lvErrors.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.lvErrors.HideSelection = false;
             this.lvErrors.LabelEdit = true;
             this.lvErrors.Location = new System.Drawing.Point(12, 66);
             this.lvErrors.Name = "lvErrors";
-            this.lvErrors.Size = new System.Drawing.Size(656, 235);
+            this.lvErrors.Size = new System.Drawing.Size(656, 236);
             this.lvErrors.TabIndex = 1;
             this.lvErrors.UseCompatibleStateImageBehavior = false;
             this.lvErrors.View = System.Windows.Forms.View.Details;
@@ -99,7 +104,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(593, 307);
+            this.btnClose.Location = new System.Drawing.Point(593, 308);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
@@ -107,11 +112,38 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.BtnCloseClick);
             // 
+            // btnCopy
+            // 
+            this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCopy.Location = new System.Drawing.Point(12, 308);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(75, 23);
+            this.btnCopy.TabIndex = 3;
+            this.btnCopy.Text = "Copy";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            // 
+            // ckbExtractIDs
+            // 
+            this.ckbExtractIDs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ckbExtractIDs.AutoSize = true;
+            this.ckbExtractIDs.Checked = true;
+            this.ckbExtractIDs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbExtractIDs.Location = new System.Drawing.Point(93, 312);
+            this.ckbExtractIDs.Name = "ckbExtractIDs";
+            this.ckbExtractIDs.Size = new System.Drawing.Size(152, 17);
+            this.ckbExtractIDs.TabIndex = 5;
+            this.ckbExtractIDs.Text = "Add extracted IDs to copy.";
+            this.ckbExtractIDs.UseVisualStyleBackColor = true;
+            this.ckbExtractIDs.CheckStateChanged += new System.EventHandler(this.ckbExtractIDs_CheckStateChanged);
+            // 
             // ErrorList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 342);
+            this.ClientSize = new System.Drawing.Size(680, 343);
+            this.Controls.Add(this.ckbExtractIDs);
+            this.Controls.Add(this.btnCopy);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lvErrors);
             this.Controls.Add(this.panel1);
@@ -126,6 +158,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -138,5 +171,8 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.ToolTip toolTipErrorList;
+        private System.Windows.Forms.CheckBox ckbExtractIDs;
     }
 }

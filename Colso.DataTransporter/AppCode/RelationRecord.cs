@@ -229,7 +229,8 @@ namespace Colso.DataTransporter.AppCode
                     var record = missing[i];
                     var entity1id = record.GetAttributeValue<Guid>(relation.Entity1IntersectAttribute);
                     var entity2id = record.GetAttributeValue<Guid>(relation.Entity2IntersectAttribute);
-                    SetProgress(i / totalTaskCount, "");
+                    
+                    SetProgress(_calcProgress(i,totalTaskCount), "");
                     SetStatusMessage(useBulk ? "Adding relationship {0}/{1} for deletion" : "{0}/{1}: delete record", i + 1, missingCount);
                     if ((transfermode & TransferMode.Preview) != TransferMode.Preview)
                     {
@@ -276,7 +277,8 @@ namespace Colso.DataTransporter.AppCode
                     var recordexist = targetRecords.Entities.Any(e => e.GetAttributeValue<Guid>(relation.Entity1IntersectAttribute).Equals(entity1id) && e.GetAttributeValue<Guid>(relation.Entity2IntersectAttribute).Equals(entity2id));
 
                     var name = relation.SchemaName;
-                    SetProgress((i + missingCount) / totalTaskCount, "Transfering relation '{0}'...", name);
+                    
+                    SetProgress(_calcProgress(i + missingCount, totalTaskCount), $"Transfering relation '{name}' ... [{i+1}/{recordCount}]");
 
                     if (!recordexist && ((transfermode & TransferMode.Create) == TransferMode.Create))
                     {
