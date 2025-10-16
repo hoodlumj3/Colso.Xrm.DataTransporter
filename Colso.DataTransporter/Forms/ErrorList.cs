@@ -7,9 +7,11 @@ using System.Text;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static Colso.Xrm.DataTransporter.AppCode.Enumerations;
+using static System.Windows.Forms.ListViewItem;
 
 namespace Colso.DataTransporter.Forms
 {
+
     public partial class ErrorList : Form
     {
         private List<Item<string, string>> errors;
@@ -21,11 +23,8 @@ namespace Colso.DataTransporter.Forms
             this.settings = settings;
             InitializeComponent();
 
-            toolTipErrorList.SetToolTip(btnCopy, "Copy all items in the list to the clipboard (as CSV), optionally seperating all GUIDs out to seperate columns");
+            toolTipErrorList.SetToolTip(btnCopyAll, "Copy all items in the list to the clipboard (using selected Copy format) and optionally extracting all GUIDs");
             toolTipErrorList.SetToolTip(btnClose, "Close this error dialog window");
-            toolTipErrorList.SetToolTip(ckbExtractIDs, "Include extra columns in copy for all discovered GUIDs");
-
-            ckbExtractIDs.Checked = settings.errorExtractIDs;
 
         }
 
@@ -45,25 +44,27 @@ namespace Colso.DataTransporter.Forms
             }
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
+        private void btnCopyAll_Click(object sender, EventArgs e)
         {
+
+            int _enCopyOptions = settings.CopyFormatType;
+            if (settings.IncludeExtractGUIDs) _enCopyOptions |= (int)enCopyOptions.ExtractIDs;
 
             //
             // Dump to clipboard
             //
-
-            int _enCopyOptions = 0;
-            
-            _enCopyOptions |= (int)enCopyOptions.CSV;
-            if (settings.errorExtractIDs) _enCopyOptions |= (int)enCopyOptions.ExtractIDs;
-
             Clipboard.SetText(listviewToOutputFormat(lvErrors, _enCopyOptions));
 
         }
 
-        private void ckbExtractIDs_CheckStateChanged(object sender, EventArgs e)
+        private void lvErrors_KeyUp(object sender, KeyEventArgs e)
         {
-            settings.errorExtractIDs = ckbExtractIDs.Checked;
+
+            handleListViewKeyUp(sender, e, settings);
+
         }
+
+
     }
+
 }

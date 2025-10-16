@@ -1,4 +1,5 @@
-﻿using Colso.Xrm.DataTransporter.Models;
+﻿using Colso.Xrm.DataTransporter.AppCode;
+using Colso.Xrm.DataTransporter.Models;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
@@ -91,20 +92,20 @@ namespace Colso.DataTransporter.AppCode
             }
         }
 
-        private bool _previewExtractIDs = false;
+        private bool _includeExtractGUIDs = false;
 
-        public bool previewExtractIDs
+        public bool IncludeExtractGUIDs
         {
-            get { return _previewExtractIDs; }
-            set { _previewExtractIDs = value; }
+            get { return _includeExtractGUIDs; }
+            set { _includeExtractGUIDs = value; }
         }
 
-        private bool _errorExtractIDs = false;
+        private int _copyFormatType = (int)Enumerations.enCopyOptions.TAB;
 
-        public bool errorExtractIDs
+        public int CopyFormatType
         {
-            get { return _errorExtractIDs; }
-            set { _errorExtractIDs = value; }
+            get { return _copyFormatType; }
+            set { _copyFormatType = value; }
         }
 
     }

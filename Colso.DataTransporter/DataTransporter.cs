@@ -60,14 +60,29 @@ namespace Colso.DataTransporter
         {
             SettingFileHandler.GetConfigData(out settings);
             InitializeComponent();
+            //
+            // store this value for later because the Datasource triggers the CheckedChanged which loses this setting
+            // Also check the setting value is in range, if not then set the deafult to TAB.
+            //
+            int intCopyFormatType = Enumerations.clipFormatItems.Any(x => x.Key.Equals(settings.CopyFormatType)) ? settings.CopyFormatType : (int)Enumerations.enCopyOptions.TAB;
+
+            cboClipFormat.ValueMember = "Key";
+            cboClipFormat.DisplayMember = "Value";
+            cboClipFormat.DataSource = Enumerations.clipFormatItems.ToList();
+
+            cboClipFormat.SelectedValue = intCopyFormatType;
+
+            ckbExtractIDs.Checked = settings.IncludeExtractGUIDs;
 
             toolTipMain.SetToolTip(btnSelectTarget, "Select the target XRM");
             toolTipMain.SetToolTip(btnEntityMappings, "Manage entity GUID mappings");
             toolTipMain.SetToolTip(btnFilter, "Manage entity filtering");
             toolTipMain.SetToolTip(btnSaveSettings, "Save entity settings");
             toolTipMain.SetToolTip(btnLoadSettings, "Load entity settings");
+            toolTipMain.SetToolTip(cboClipFormat, "Set copy to clipboard format type on error and preview dialogs");
+            toolTipMain.SetToolTip(ckbExtractIDs, "Include extra columns for all discovered GUIDs in the copy data");
 
-            
+
         }
 
         #region XrmToolbox
@@ -1012,7 +1027,7 @@ namespace Colso.DataTransporter
             CancelWorker();
             tsbCancel.Text = @"Cancelling...";
         }
-
+       
         private void lvAttributes_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             var entityLogicalName = GetSelectedEntityLogicalName();
@@ -1146,6 +1161,16 @@ namespace Colso.DataTransporter
             if (lvEntities.SelectedItems.Count <= 0) return null;
             var entityItem = lvEntities.SelectedItems[0];
             return ((EntityMetadata)entityItem?.Tag)?.LogicalName;
+        }
+
+        private void ckbExtractIDs_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.IncludeExtractGUIDs = ckbExtractIDs.Checked;
+        }
+
+        private void cboClipFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+            settings.CopyFormatType = (int)cboClipFormat.SelectedValue;
         }
     }
 }

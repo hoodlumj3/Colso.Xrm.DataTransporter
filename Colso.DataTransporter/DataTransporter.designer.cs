@@ -96,6 +96,9 @@
             this.lblAssFilter = new System.Windows.Forms.Label();
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cboClipFormat = new System.Windows.Forms.ComboBox();
+            this.lblCopyFormat = new System.Windows.Forms.Label();
+            this.ckbExtractIDs = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbSettings.SuspendLayout();
@@ -116,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEntityFilter.Location = new System.Drawing.Point(48, 17);
             this.txtEntityFilter.Name = "txtEntityFilter";
-            this.txtEntityFilter.Size = new System.Drawing.Size(262, 20);
+            this.txtEntityFilter.Size = new System.Drawing.Size(346, 20);
             this.txtEntityFilter.TabIndex = 66;
             this.txtEntityFilter.TextChanged += new System.EventHandler(this.txtEntityFilter_TextChanged);
             // 
@@ -143,7 +146,7 @@
             this.lvEntities.Location = new System.Drawing.Point(7, 44);
             this.lvEntities.MultiSelect = false;
             this.lvEntities.Name = "lvEntities";
-            this.lvEntities.Size = new System.Drawing.Size(302, 388);
+            this.lvEntities.Size = new System.Drawing.Size(386, 388);
             this.lvEntities.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvEntities.TabIndex = 64;
             this.lvEntities.UseCompatibleStateImageBehavior = false;
@@ -181,7 +184,7 @@
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 24);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 100);
+            this.pnlHeader.Size = new System.Drawing.Size(1005, 100);
             this.pnlHeader.TabIndex = 103;
             // 
             // groupBox1
@@ -190,7 +193,7 @@
             this.groupBox1.Controls.Add(this.cbSystemUserEntityReferences);
             this.groupBox1.Controls.Add(this.cbTransactionCurrency);
             this.groupBox1.Controls.Add(this.cbBusinessUnit);
-            this.groupBox1.Location = new System.Drawing.Point(598, 4);
+            this.groupBox1.Location = new System.Drawing.Point(803, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(194, 93);
             this.groupBox1.TabIndex = 103;
@@ -236,15 +239,18 @@
             // gbSettings
             // 
             this.gbSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbSettings.Controls.Add(this.ckbExtractIDs);
+            this.gbSettings.Controls.Add(this.lblCopyFormat);
+            this.gbSettings.Controls.Add(this.cboClipFormat);
             this.gbSettings.Controls.Add(this.nudBulkCount);
             this.gbSettings.Controls.Add(this.lblBulkCount);
             this.gbSettings.Controls.Add(this.chkUseBulk);
             this.gbSettings.Controls.Add(this.cbUpdate);
             this.gbSettings.Controls.Add(this.cbDelete);
             this.gbSettings.Controls.Add(this.cbCreate);
-            this.gbSettings.Location = new System.Drawing.Point(418, 3);
+            this.gbSettings.Location = new System.Drawing.Point(480, 3);
             this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Size = new System.Drawing.Size(176, 94);
+            this.gbSettings.Size = new System.Drawing.Size(319, 94);
             this.gbSettings.TabIndex = 102;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
@@ -258,7 +264,7 @@
             0,
             0});
             this.nudBulkCount.Location = new System.Drawing.Point(76, 66);
-            this.nudBulkCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudBulkCount.Margin = new System.Windows.Forms.Padding(2);
             this.nudBulkCount.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -343,7 +349,7 @@
             this.gbEnvironments.Controls.Add(this.lbTargetValue);
             this.gbEnvironments.Location = new System.Drawing.Point(3, 4);
             this.gbEnvironments.Name = "gbEnvironments";
-            this.gbEnvironments.Size = new System.Drawing.Size(410, 93);
+            this.gbEnvironments.Size = new System.Drawing.Size(471, 93);
             this.gbEnvironments.TabIndex = 101;
             this.gbEnvironments.TabStop = false;
             this.gbEnvironments.Text = "Environments";
@@ -410,7 +416,7 @@
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.tsMain.Size = new System.Drawing.Size(800, 24);
+            this.tsMain.Size = new System.Drawing.Size(1005, 24);
             this.tsMain.TabIndex = 90;
             this.tsMain.Text = "toolStrip1";
             // 
@@ -533,7 +539,7 @@
             this.pnlBody.RowCount = 1;
             this.pnlBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.pnlBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.pnlBody.Size = new System.Drawing.Size(786, 444);
+            this.pnlBody.Size = new System.Drawing.Size(991, 444);
             this.pnlBody.TabIndex = 104;
             // 
             // gbAttributes
@@ -546,9 +552,9 @@
             this.gbAttributes.Controls.Add(this.lvAttributes);
             this.gbAttributes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbAttributes.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.gbAttributes.Location = new System.Drawing.Point(324, 3);
+            this.gbAttributes.Location = new System.Drawing.Point(408, 3);
             this.gbAttributes.Name = "gbAttributes";
-            this.gbAttributes.Size = new System.Drawing.Size(459, 438);
+            this.gbAttributes.Size = new System.Drawing.Size(580, 438);
             this.gbAttributes.TabIndex = 92;
             this.gbAttributes.TabStop = false;
             this.gbAttributes.Text = "Available attributes";
@@ -557,7 +563,7 @@
             // 
             this.btnLoadSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoadSettings.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.load;
-            this.btnLoadSettings.Location = new System.Drawing.Point(431, 17);
+            this.btnLoadSettings.Location = new System.Drawing.Point(552, 17);
             this.btnLoadSettings.Name = "btnLoadSettings";
             this.btnLoadSettings.Size = new System.Drawing.Size(22, 23);
             this.btnLoadSettings.TabIndex = 104;
@@ -568,7 +574,7 @@
             // 
             this.btnSaveSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveSettings.Image = global::Colso.Xrm.DataTransporter.Properties.Resources.save;
-            this.btnSaveSettings.Location = new System.Drawing.Point(403, 17);
+            this.btnSaveSettings.Location = new System.Drawing.Point(524, 17);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(22, 23);
             this.btnSaveSettings.TabIndex = 103;
@@ -579,7 +585,7 @@
             // 
             this.btnEntityMappings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEntityMappings.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnEntityMappings.Location = new System.Drawing.Point(265, 17);
+            this.btnEntityMappings.Location = new System.Drawing.Point(386, 17);
             this.btnEntityMappings.Name = "btnEntityMappings";
             this.btnEntityMappings.Size = new System.Drawing.Size(72, 23);
             this.btnEntityMappings.TabIndex = 102;
@@ -591,7 +597,7 @@
             // 
             this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFilter.Enabled = false;
-            this.btnFilter.Location = new System.Drawing.Point(343, 17);
+            this.btnFilter.Location = new System.Drawing.Point(464, 17);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(53, 23);
             this.btnFilter.TabIndex = 101;
@@ -627,7 +633,7 @@
             this.lvAttributes.HideSelection = false;
             this.lvAttributes.Location = new System.Drawing.Point(6, 44);
             this.lvAttributes.Name = "lvAttributes";
-            this.lvAttributes.Size = new System.Drawing.Size(448, 388);
+            this.lvAttributes.Size = new System.Drawing.Size(569, 388);
             this.lvAttributes.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvAttributes.TabIndex = 64;
             this.lvAttributes.UseCompatibleStateImageBehavior = false;
@@ -663,7 +669,7 @@
             this.gbEntities.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbEntities.Location = new System.Drawing.Point(3, 3);
             this.gbEntities.Name = "gbEntities";
-            this.gbEntities.Size = new System.Drawing.Size(315, 438);
+            this.gbEntities.Size = new System.Drawing.Size(399, 438);
             this.gbEntities.TabIndex = 93;
             this.gbEntities.TabStop = false;
             this.gbEntities.Text = "Available Entities";
@@ -676,7 +682,7 @@
             this.tabSourceObjects.Location = new System.Drawing.Point(0, 124);
             this.tabSourceObjects.Name = "tabSourceObjects";
             this.tabSourceObjects.SelectedIndex = 0;
-            this.tabSourceObjects.Size = new System.Drawing.Size(800, 476);
+            this.tabSourceObjects.Size = new System.Drawing.Size(1005, 476);
             this.tabSourceObjects.TabIndex = 67;
             this.tabSourceObjects.SelectedIndexChanged += new System.EventHandler(this.tabSourceObjects_SelectedIndexChanged);
             // 
@@ -685,8 +691,8 @@
             this.tabEntities.Controls.Add(this.pnlBody);
             this.tabEntities.Location = new System.Drawing.Point(4, 22);
             this.tabEntities.Name = "tabEntities";
-            this.tabEntities.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabEntities.Size = new System.Drawing.Size(792, 450);
+            this.tabEntities.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEntities.Size = new System.Drawing.Size(997, 450);
             this.tabEntities.TabIndex = 0;
             this.tabEntities.Text = "Entities";
             this.tabEntities.UseVisualStyleBackColor = true;
@@ -699,7 +705,7 @@
             this.tabAssociations.Controls.Add(this.lblAssFilter);
             this.tabAssociations.Location = new System.Drawing.Point(4, 22);
             this.tabAssociations.Name = "tabAssociations";
-            this.tabAssociations.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAssociations.Padding = new System.Windows.Forms.Padding(3);
             this.tabAssociations.Size = new System.Drawing.Size(792, 450);
             this.tabAssociations.TabIndex = 1;
             this.tabAssociations.Text = "Associations";
@@ -791,6 +797,41 @@
             this.lblAssFilter.TabIndex = 68;
             this.lblAssFilter.Text = "Filter:";
             // 
+            // cboClipFormat
+            // 
+            this.cboClipFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cboClipFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboClipFormat.FormattingEnabled = true;
+            this.cboClipFormat.Location = new System.Drawing.Point(190, 65);
+            this.cboClipFormat.Name = "cboClipFormat";
+            this.cboClipFormat.Size = new System.Drawing.Size(121, 21);
+            this.cboClipFormat.TabIndex = 7;
+            this.cboClipFormat.SelectedIndexChanged += new System.EventHandler(this.cboClipFormat_SelectedIndexChanged);
+            // 
+            // lblCopyFormat
+            // 
+            this.lblCopyFormat.AutoSize = true;
+            this.lblCopyFormat.Location = new System.Drawing.Point(188, 45);
+            this.lblCopyFormat.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCopyFormat.Name = "lblCopyFormat";
+            this.lblCopyFormat.Size = new System.Drawing.Size(63, 13);
+            this.lblCopyFormat.TabIndex = 8;
+            this.lblCopyFormat.Text = "Copy format";
+            // 
+            // ckbExtractIDs
+            // 
+            this.ckbExtractIDs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ckbExtractIDs.AutoSize = true;
+            this.ckbExtractIDs.Checked = true;
+            this.ckbExtractIDs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbExtractIDs.Location = new System.Drawing.Point(191, 21);
+            this.ckbExtractIDs.Name = "ckbExtractIDs";
+            this.ckbExtractIDs.Size = new System.Drawing.Size(118, 17);
+            this.ckbExtractIDs.TabIndex = 9;
+            this.ckbExtractIDs.Text = "Add GUIDs to copy";
+            this.ckbExtractIDs.UseVisualStyleBackColor = true;
+            this.ckbExtractIDs.CheckedChanged += new System.EventHandler(this.ckbExtractIDs_CheckedChanged);
+            // 
             // DataTransporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,7 +841,7 @@
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.tsMain);
             this.Name = "DataTransporter";
-            this.Size = new System.Drawing.Size(800, 600);
+            this.Size = new System.Drawing.Size(1005, 600);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -891,5 +932,8 @@
         private System.Windows.Forms.ToolStripButton tsbCancel;
         private System.Windows.Forms.ToolTip toolTipMain;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lblCopyFormat;
+        private System.Windows.Forms.ComboBox cboClipFormat;
+        private System.Windows.Forms.CheckBox ckbExtractIDs;
     }
 }

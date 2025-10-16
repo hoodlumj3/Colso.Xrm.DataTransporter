@@ -34,9 +34,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lvItems = new System.Windows.Forms.ListView();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnCopy = new System.Windows.Forms.Button();
+            this.btnCopyAll = new System.Windows.Forms.Button();
             this.toolTipPreview = new System.Windows.Forms.ToolTip(this.components);
-            this.ckbExtractIDs = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +77,7 @@
             this.lvItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvItems.FullRowSelect = true;
             this.lvItems.HideSelection = false;
             this.lvItems.LabelEdit = true;
             this.lvItems.Location = new System.Drawing.Point(12, 66);
@@ -86,6 +87,7 @@
             this.lvItems.UseCompatibleStateImageBehavior = false;
             this.lvItems.View = System.Windows.Forms.View.Details;
             this.lvItems.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvItems_ColumnClick);
+            this.lvItems.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvItems_KeyUp);
             // 
             // btnClose
             // 
@@ -98,39 +100,36 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.BtnCloseClick);
             // 
-            // btnCopy
+            // btnCopyAll
             // 
-            this.btnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCopy.Location = new System.Drawing.Point(12, 759);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(75, 23);
-            this.btnCopy.TabIndex = 3;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            this.btnCopyAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCopyAll.Location = new System.Drawing.Point(12, 759);
+            this.btnCopyAll.Name = "btnCopyAll";
+            this.btnCopyAll.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyAll.TabIndex = 3;
+            this.btnCopyAll.Text = "Copy";
+            this.btnCopyAll.UseVisualStyleBackColor = true;
+            this.btnCopyAll.Click += new System.EventHandler(this.btnCopyAll_Click);
             // 
-            // ckbExtractIDs
+            // label3
             // 
-            this.ckbExtractIDs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ckbExtractIDs.AutoSize = true;
-            this.ckbExtractIDs.Checked = true;
-            this.ckbExtractIDs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbExtractIDs.Location = new System.Drawing.Point(94, 764);
-            this.ckbExtractIDs.Name = "ckbExtractIDs";
-            this.ckbExtractIDs.Size = new System.Drawing.Size(152, 17);
-            this.ckbExtractIDs.TabIndex = 4;
-            this.ckbExtractIDs.Text = "Add extracted IDs to copy.";
-            this.ckbExtractIDs.UseVisualStyleBackColor = true;
-            this.ckbExtractIDs.CheckedChanged += new System.EventHandler(this.ckbExtractIDs_CheckedChanged);
-            this.ckbExtractIDs.CheckStateChanged += new System.EventHandler(this.ckbExtractIDs_CheckStateChanged);
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(323, 756);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(260, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Multi Line Select (SHIFT, CTRL), CTRL+A && CTRL+C ";
             // 
             // Preview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(941, 794);
-            this.Controls.Add(this.ckbExtractIDs);
-            this.Controls.Add(this.btnCopy);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnCopyAll);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lvItems);
             this.Controls.Add(this.panel1);
@@ -156,8 +155,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView lvItems;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Button btnCopyAll;
         private System.Windows.Forms.ToolTip toolTipPreview;
-        private System.Windows.Forms.CheckBox ckbExtractIDs;
+        private System.Windows.Forms.Label label3;
     }
 }

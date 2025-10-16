@@ -23,11 +23,9 @@ namespace Colso.DataTransporter.Forms
             this.settings = settings;
             InitializeComponent();
 
-            toolTipPreview.SetToolTip(btnCopy, "Copy all items in the list to the clipboard (as CSV), optionally seperating all GUIDs out to seperate columns.");
+            toolTipPreview.SetToolTip(btnCopyAll, "Copy all items in the list to the clipboard (using selected Copy format) and optionally extracting all GUIDs");
             toolTipPreview.SetToolTip(btnClose, "Close this preview dialog window.");
-            toolTipPreview.SetToolTip(ckbExtractIDs, "Include extra columns in copy for all discovered GUIDs");
-            
-            ckbExtractIDs.Checked = settings.previewExtractIDs;
+
 
 
         }
@@ -67,14 +65,11 @@ namespace Colso.DataTransporter.Forms
             SetListViewSorting(lvItems, e.Column);
         }
 
-        private void btnCopy_Click(object sender, EventArgs e)
+        private void btnCopyAll_Click(object sender, EventArgs e)
         {
 
-            int _enCopyOptions = 0;
-
-            _enCopyOptions |= (int)enCopyOptions.CSV;
-            if (settings.previewExtractIDs) _enCopyOptions |= (int)enCopyOptions.ExtractIDs;
-
+            int _enCopyOptions = settings.CopyFormatType;
+            if (settings.IncludeExtractGUIDs) _enCopyOptions |= (int)enCopyOptions.ExtractIDs;
 
             //
             // Dump to clipboard
@@ -83,14 +78,13 @@ namespace Colso.DataTransporter.Forms
 
         }
 
-        private void ckbExtractIDs_CheckStateChanged(object sender, EventArgs e)
+        private void lvItems_KeyUp(object sender, KeyEventArgs e)
         {
-            settings.previewExtractIDs = ckbExtractIDs.Checked;
+
+            handleListViewKeyUp(sender, e, settings);
+
         }
 
-        private void ckbExtractIDs_CheckedChanged(object sender, EventArgs e)
-        {
-            string a = "a";
-        }
     }
+
 }
